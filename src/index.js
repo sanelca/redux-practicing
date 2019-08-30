@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import logger from 'redux-logger'
+import { createStore, applyMiddleware } from 'redux';
 import { combineReducers } from 'redux';
+import ReduxThunk from 'redux-thunk';
+
 
 const reducer = (state = 5) => {
   return state;
@@ -247,3 +250,51 @@ const store9 = createStore(notesReducer);
 console.log(store9.getState());
 store9.dispatch(addNoteText('Hello!'));
 console.log(store9.getState());
+
+//Use Middleware to Handle Asynchronous Actions
+const REQUESTING_DATA = 'REQUESTING_DATA'
+const RECEIVED_DATA = 'RECEIVED_DATA'
+
+const requestingData = () => { return {type: REQUESTING_DATA} }
+const receivedData = (data) => { return {type: RECEIVED_DATA, users: data.users} }
+
+const handleAsync = () => {
+  return function(dispatch) {
+    // dispatch request action here
+    dispatch(requestingData());
+    setTimeout(function() {
+      let data = {
+        users: ['Jeff', 'William', 'Alice']
+      }
+      // dispatch received data action here
+    dispatch(receivedData(data));
+    }, 2500);
+  }
+};
+
+const defaultState5 = {
+  fetching: false,
+  users: []
+};
+
+const asyncDataReducer = (state = defaultState5, action) => {
+  switch(action.type) {
+    case REQUESTING_DATA:
+      return {
+        fetching: true,
+        users: []
+      }
+    case RECEIVED_DATA:
+      return {
+        fetching: false,
+        users: action.users
+      }
+    default:
+      return state;
+  }
+};
+
+const store10 = createStore(
+  asyncDataReducer,
+  applyMiddleware(logger)
+);
