@@ -298,3 +298,61 @@ const store10 = createStore(
   asyncDataReducer,
   applyMiddleware(logger)
 );
+
+
+//Write a Counter with Redux
+const INCREMENT2 = 'INCREMENT'; // define a constant for increment action types
+const DECREMENT2 = 'DECREMENT'; // define a constant for decrement action types
+
+const counterReducer2 = (state = 0, action) => {
+    if (action.type === INCREMENT2) {
+        return (state += 1);
+    } else if (action.type === DECREMENT2) {
+        return (state -= 1);
+    }
+    return state;
+} // define the counter reducer which will increment or decrement the state based on the action it receives
+
+const incAction = () => {
+    return {type: INCREMENT2};
+} // define an action creator for incrementing
+
+const decAction = () => {
+    return {type: DECREMENT2};
+} // define an action creator for decrementing
+
+const store11 = createStore(counterReducer2); // define the Redux store here, passing in your reducers
+
+
+
+
+//Never Mutate State
+const ADD_TO_DO = 'ADD_TO_DO';
+
+// A list of strings representing tasks to do:
+const todos = [
+  'Go to the store',
+  'Clean the house',
+  'Cook dinner',
+  'Learn to code',
+];
+
+const immutableReducer = (state = todos, action) => {
+  switch(action.type) {
+    case ADD_TO_DO:
+      // don't mutate state here or the tests will fail
+      return state.concat(action.todo);
+    default:
+      return state;
+  }
+};
+
+// an example todo argument would be 'Learn React',
+const addToDo = (todo) => {
+  return {
+    type: ADD_TO_DO,
+    todo
+  }
+}
+
+const store12 = createStore(immutableReducer);
