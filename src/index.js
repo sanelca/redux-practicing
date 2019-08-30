@@ -356,3 +356,27 @@ const addToDo = (todo) => {
 }
 
 const store12 = createStore(immutableReducer);
+
+
+
+
+
+//Use the Spread Operator on Arrays
+const immutableReducer2 = (state = ['Do not mutate state!'], action) => {
+  switch(action.type) {
+    case 'ADD_TO_DO':
+      // don't mutate state here or the tests will fail
+      return [...state, action.todo];
+    default:
+      return state;
+  }
+};
+
+const addToDo2 = (todo) => {
+  return {
+    type: 'ADD_TO_DO',
+    todo
+  }
+}
+
+const store13 = createStore(immutableReducer2);
