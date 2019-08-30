@@ -404,3 +404,30 @@ const removeItem = (index) => {
 }
 
 const store15 = createStore(immutableReducer4);
+
+
+//Copy an Object with Object.assign
+const defaultState20 = {
+  user: 'CamperBot',
+  status: 'offline',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+
+const immutableReducer20 = (state = defaultState20, action) => {
+  switch(action.type) {
+    case 'ONLINE':
+      // don't mutate state here or the tests will fail
+      return Object.assign({}, state, {status: 'online'});
+    default:
+      return state;
+  }
+};
+
+const wakeUp = () => {
+  return {
+    type: 'ONLINE'
+  }
+};
+
+const store20 = createStore(immutableReducer20);
