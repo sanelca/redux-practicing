@@ -380,3 +380,27 @@ const addToDo2 = (todo) => {
 }
 
 const store13 = createStore(immutableReducer2);
+
+
+
+//Remove an Item from an Array
+const immutableReducer4 = (state = [0,1,2,3,4,5], action) => {
+  switch(action.type) {
+    case 'REMOVE_ITEM':
+      // don't mutate state here or the tests will fail
+    let newArray = state.slice();
+    newArray.splice(action.index,  1);
+    return newArray;
+    default:
+      return state;
+  }
+};
+
+const removeItem = (index) => {
+  return {
+    type: 'REMOVE_ITEM',
+    index
+  }
+}
+
+const store15 = createStore(immutableReducer4);
