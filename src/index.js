@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
+import { combineReducers } from 'redux';
 
 const reducer = (state = 5) => {
   return state;
@@ -177,3 +178,41 @@ console.log(count);
 
 
 //Combine Multiple Reducers
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+const counterReducer = (state = 0, action) => {
+  switch(action.type) {
+    case INCREMENT:
+      return state + 1;
+    case DECREMENT:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+const LOGIN2 = 'LOGIN';
+const LOGOUT2 = 'LOGOUT';
+
+const authReducer4 = (state = {authenticated: false}, action) => {
+  switch(action.type) {
+    case LOGIN:
+      return {
+        authenticated: true
+      }
+    case LOGOUT:
+      return {
+        authenticated: false
+      }
+    default:
+      return state;
+  }
+};
+
+const rootReducer = combineReducers({
+  auth: authReducer4,
+  count: counterReducer
+});
+
+const store8 = createStore(rootReducer);
