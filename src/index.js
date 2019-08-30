@@ -145,3 +145,35 @@ const logoutUser4 = () => {
     type: LOGOUT
   }
 };
+
+
+//Register a Store Listener
+const ADD = 'ADD';
+
+const reducer3 = (state = 0, action) => {
+  switch(action.type) {
+    case ADD:
+      return state + 1;
+    default:
+      return state;
+  }
+};
+
+const store7 = createStore(reducer);
+
+// global count variable:
+let count = 0;
+
+// change code below this line
+store7.subscribe(() => {count++});
+// change code above this line
+
+store7.dispatch({type: ADD});
+console.log(count);
+store7.dispatch({type: ADD});
+console.log(count);
+store7.dispatch({type: ADD});
+console.log(count);
+
+
+//Combine Multiple Reducers
