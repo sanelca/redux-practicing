@@ -9,8 +9,35 @@ const reducer = (state = 5) => {
 
 const store = createStore(reducer);
 
-render(<reducer value={25} />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+//Get State from the Redux Store
+
+const store2 = createStore(
+  (state = 5) => state
+);
+let currentState = store2.getState();
+
+console.log(currentState)
+
+//Define a Redux Action
+let action={
+  type: 'LOGIN'
+}
+
+//Define an Action Creator
+function actionCreator(){
+    return action;
+}
+
+//Dispatch an Action Event
+const store3 = createStore(
+  (state = {login: false}) => state
+);
+
+const loginAction = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+
+store3.dispatch(loginAction());
