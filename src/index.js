@@ -100,3 +100,48 @@ const logoutUser3 = () => {
     type: 'LOGOUT'
   }
 };
+
+
+
+//Use const for Action Types
+const LOGIN = 'LOGIN';
+const LOGOUT = 'LOGOUT';
+
+const defaultState4 = {
+  authenticated: false
+};
+
+const authReducer2 = (state = defaultState4, action) => {
+
+  switch (action.type) {
+
+    case LOGIN:
+      return {
+        authenticated: true
+      }
+
+    case LOGOUT:
+      return {
+        authenticated: false
+      }
+
+    default:
+      return state;
+
+  }
+
+};
+
+const store6 = createStore(authReducer2);
+
+const loginUser4 = () => {
+  return {
+    type: LOGIN
+  }
+};
+
+const logoutUser4 = () => {
+  return {
+    type: LOGOUT
+  }
+};
