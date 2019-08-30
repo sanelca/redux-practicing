@@ -66,3 +66,37 @@ const loginAction2 = () => {
     type: 'LOGIN'
   }
 };
+
+//Use a Switch Statement to Handle Multiple Actions
+const defaultState2 = {
+  authenticated: false
+};
+
+const authReducer = (state = defaultState2, action) => {
+  // change code below this line
+  switch (action.type) {
+    case 'LOGIN':
+      return {authenticated: true};
+      break;
+    case 'LOGOUT':
+      return {authenticated: false};
+      break;
+    default:
+      return defaultState2;
+  }
+  // change code above this line
+};
+
+const store5 = createStore(authReducer);
+
+const loginUser3 = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+
+const logoutUser3 = () => {
+  return {
+    type: 'LOGOUT'
+  }
+};
